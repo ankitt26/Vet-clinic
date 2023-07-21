@@ -95,3 +95,83 @@ INNER JOIN owners ON animals.owner_id = owners.id
 GROUP BY owners.full_name
 ORDER BY animal_count DESC
 LIMIT 1;
+
+-- join table queries
+
+SELECT animals.name AS last_animal_seen
+FROM animals
+INNER JOIN visits ON animals.id = visits.animal_id
+INNER JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'William Tatcher'
+ORDER BY visits.date_of_visit DESC
+LIMIT 1;
+
+
+SELECT COUNT(DISTINCT animals.id) AS num_different_animals_seen
+FROM animals
+INNER JOIN visits ON animals.id = visits.animal_id
+INNER JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Stephanie Mendez';
+
+
+				   
+SELECT vets.name AS vet_name,species.name AS specialty
+FROM vets
+LEFT JOIN specializations ON vets.id = specializations.vet_id
+LEFT JOIN species ON specializations.species_id = species.id;
+
+
+SELECT animals.name
+FROM animals
+INNER JOIN visits ON animals.id = visits.animal_id
+INNER JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Stephanie Mendez'
+  AND visits.date_of_visit BETWEEN '2020-04-01' AND '2020-08-30';
+
+
+SELECT animals.name, COUNT(visits.animal_id) AS num_visits
+FROM animals
+INNER JOIN visits ON animals.id = visits.animal_id
+GROUP BY animals.name
+ORDER BY num_visits DESC
+LIMIT 1;
+
+
+SELECT animals.name FROM animals
+INNER JOIN visits ON animals.id = visits.animal_id
+INNER JOIN vets ON visits.vet_id = vets.id
+WHERE vets.name = 'Maisy Smith'
+ORDER BY visits.date_of_visit ASC
+LIMIT 1;
+
+
+SELECT animals.name, animals.date_of_birth, animals.escape_attempts, animals.weight_kg, visits.date_of_visit, vets.name AS vets FROM animals
+INNER JOIN visits ON animals.id = visits.animal_id
+INNER JOIN vets ON visits.vet_id = vets.id
+ORDER BY visits.date_of_visit DESC
+LIMIT 1;
+
+
+
+SELECT COUNT(visits.vet_id) AS num_visits_no_specialization
+FROM visits
+INNER JOIN vets ON visits.vet_id = vets.id
+INNER JOIN species ON visits.vet_id = species.id
+WHERE vets.id NOT IN (
+    SELECT vet_id
+    FROM specializations
+    WHERE specializations.species_id = visits.vet_id
+);
+
+
+SELECT species.name AS Maisy_Smith_consider_getting, COUNT(visits.vet_id) AS num_visits_no_specialization
+FROM visits
+INNER JOIN vets ON visits.vet_id = vets.id
+INNER JOIN species ON visits.vet_id = species.id
+WHERE vets.id NOT IN (
+    SELECT vet_id
+    FROM specializations
+    WHERE specializations.species_id = visits.vet_id
+)
+GROUP BY species.name;
+
