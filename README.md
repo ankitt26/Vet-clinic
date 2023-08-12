@@ -40,6 +40,7 @@ After you're finished please remove all the comments and instructions!
   - [🛠 Built With ](#-built-with-)
     - [Tech Stack ](#tech-stack-)
     - [Key Features ](#key-features-)
+  - [Schema Diagram](#schema-diagram)
   - [💻 Getting Started ](#-getting-started-)
     - [Prerequisites](#prerequisites)
     - [Setup](#setup)
@@ -79,6 +80,10 @@ After you're finished please remove all the comments and instructions!
 - **[animal DOB]**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Schema Diagram
+
+![Schema Diagram](schema-diagram.png)
 
 <!-- GETTING STARTED -->
 
